@@ -13,10 +13,16 @@ formulario.addEventListener('submit', (e) =>  {
     const valor_name = campo_name.value
     const valor_email = campo_email.value
 
-if (!regUserName.test(valor_name) || !regUserEmail.test(valor_email)) { 
-        console.log('error');
+
+if (!regUserName.test( valor_name) || !valor_name.trim()) { 
+        console.log('error en el nombre');
         return;
-        }   
+}
+        
+if (!regUserEmail.test( valor_email) || !valor_email.trim()) { 
+          console.log('error en el email');
+          return;
+}   
  
  console.log ('form enviado');
 });
