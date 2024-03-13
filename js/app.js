@@ -10,19 +10,58 @@ const regUserEmail = /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z
 
 formulario.addEventListener('submit', (e) =>  {
     e.preventDefault();
-    const valor_name = campo_name.value
-    const valor_email = campo_email.value
+    alert_success.classList.add = ('d-none');
+    alert_name.classList.add = ('d-none');
+    alert_email.classList.add = ('d-none');
+
+    
+    const valor_name = campo_name.value;
+    const valor_email = campo_email.value;
+
+    const errores = []
 
 
 if (!regUserName.test( valor_name) || !valor_name.trim()) { 
+    campo_name.classList.remove('is-valid');
+    campo_name.classList.add('is-invalid');
         console.log('error en el nombre');
-        return;
+        errores.push({
+            tipo:alert_name,
+            msg:'te has equivocado, solo letras',
+        })
+} else {
+    campo_name.classList.add('is-valid');
+    campo_name.classList.remove('is-invalid');
 }
         
 if (!regUserEmail.test( valor_email) || !valor_email.trim()) { 
-          console.log('error en el email');
-          return;
-}   
+    campo_email.classList.remove('is-valid');
+    campo_email.classList.add('is-invalid');
+        errores.push({
+        tipo:alert_email,
+        msg:'te has equivocado, ingrese mail valido',
+    })
+} else {
+    campo_email.classList.add('is-valid');
+    campo_name.classList.remove('is-invalid');
+}
+
+if (errores.length !== 0) {
+    mostrarMensajeError(errores) 
+    return;
+}
  
- console.log ('form enviado');
+mostrarFormEnviado();
 });
+
+const mostrarFormEnviado = () => {
+    alert_success.classList.remove('d-none');
+    alert_success.textContent = 'enviado con éxito';
+}
+
+const mostrarMensajeError = (errores) => {
+    errores.forEach((item) => {
+        item.tipo.classList.remove('d-none');
+        item.tipo.textContent = (item.msg)
+    });; 
+}
